@@ -16,6 +16,7 @@ public class PlayerMove : MonoBehaviour
 
     // Event pour les dev
     public event Action OnStartMove;
+    public event Action OnStopMove;
     public event Action<int> OnHealthUpdate;
 
     // Event pour les GD
@@ -93,6 +94,7 @@ public class PlayerMove : MonoBehaviour
     {
         StopCoroutine(MovementRoutine);
         JoystickDirection = Vector2.zero;
+        OnStopMove?.Invoke();
         Debug.Log($"Stop Move : {obj.ReadValue<Vector2>()}");
     }
 

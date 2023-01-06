@@ -1,16 +1,25 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerAttack : MonoBehaviour
 {
-    // Start is called before the first frame update
+    [SerializeField] InputActionReference _attack;
+
+    public event Action OnAttack;
+
     void Start()
     {
-        
+        _attack.action.started += OnPlayerAttack; 
     }
 
-    // Update is called once per frame
+    private void OnPlayerAttack(InputAction.CallbackContext obj)
+    {
+        OnAttack?.Invoke();
+    }
+
     void Update()
     {
         
