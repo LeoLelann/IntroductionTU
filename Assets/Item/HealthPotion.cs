@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class HealthPotion : Item
 {
-
     [SerializeField] EntityHealth _heal;
     [SerializeField] int healthgain;
     private void OnTriggerEnter(Collider other)
@@ -12,4 +11,6 @@ public class HealthPotion : Item
         _heal.AddHealth(healthgain);
         Destroy(gameObject);
     }
+
+
 }
