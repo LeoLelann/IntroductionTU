@@ -13,10 +13,17 @@ public class EntityHealth : MonoBehaviour
     [SerializeField] PowerUp powerUp;
 
     public int CurrentHealth { get; private set; }
+    public int MaxHealth { get => _maxHealth; set => _maxHealth = value; }
 
     private void Awake()
     {
         CurrentHealth = _maxHealth;
+    }
+
+    private void Start()
+    {
+        _healthUI?.MaxHealthUpdate(_maxHealth);
+        _healthUI?.UpdateSlider(CurrentHealth);
     }
 
     public void AddHealth(int healthgain)
@@ -27,13 +34,14 @@ public class EntityHealth : MonoBehaviour
         {
             CurrentHealth = _maxHealth;
         }
-        _healthUI.UpdateSlider(CurrentHealth);
+        _healthUI?.UpdateSlider(CurrentHealth);
     }
 
     public void ActivePowerUp(int maxHealthGain)
     {
         _maxHealth += maxHealthGain;
-        _healthUI.UpdateSlider(_maxHealth);
+        _healthUI?.MaxHealthUpdate(_maxHealth);
+        _healthUI?.UpdateSlider(CurrentHealth);
     }
 
     public void TakeDamage()
