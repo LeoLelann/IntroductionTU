@@ -14,6 +14,14 @@ public class EntityHealth : MonoBehaviour
         CurrentHealth = _maxHealth;
     }
 
+    public void AddHealth(int healthgain)
+    {
+        CurrentHealth += healthgain;
 
+        if(CurrentHealth > _maxHealth)
+        {
+            CurrentHealth = _maxHealth;
+        }
+    }
 
 }
