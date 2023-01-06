@@ -38,6 +38,6 @@ public class EntityHealth : MonoBehaviour
 
     public void TakeDamage()
     {
-
+        Debug.Log("DAMAGE");
     }
 }

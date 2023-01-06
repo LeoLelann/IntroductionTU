@@ -7,6 +7,8 @@ using UnityEngine.InputSystem;
 public class PlayerAttack : MonoBehaviour
 {
     [SerializeField] InputActionReference _attack;
+    [SerializeField] HitEntity _attackZone;
+    [SerializeField] int _attackPower;
 
     public event Action OnAttack;
 
@@ -18,6 +20,7 @@ public class PlayerAttack : MonoBehaviour
     private void OnPlayerAttack(InputAction.CallbackContext obj)
     {
         OnAttack?.Invoke();
+        _attackZone?.AttackEntities(_attackPower);
     }
 
     void Update()
