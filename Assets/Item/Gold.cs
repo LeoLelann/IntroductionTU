@@ -5,12 +5,10 @@ using UnityEngine;
 public class Gold : Item
 {
 
-    private void AddObject()
-    {
-        //add count pour le gold
-    }
+    [SerializeField] EntityGold _gold;
     private void OnTriggerEnter(Collider other)
     {
+        _gold.AddGold(1);
         Destroy(gameObject);
     }
 }
