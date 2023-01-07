@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 public class PlayerAttack : MonoBehaviour
@@ -9,6 +10,7 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] InputActionReference _attack;
     [SerializeField] HitEntity _attackZone;
     [SerializeField] int _attackPower;
+    [SerializeField] UnityEvent _onPlayerAttack;
 
     public event Action OnAttack;
     Coroutine AttackingRoutine { get; set; }
@@ -31,6 +33,7 @@ public class PlayerAttack : MonoBehaviour
     IEnumerator AttackRoutine()
     {
         OnAttack?.Invoke();
+        _onPlayerAttack.Invoke();
         for (int i = 0; i < _attackZone.Targets.Count; i++)
         {
             EntityHealth health = _attackZone.Targets[i];

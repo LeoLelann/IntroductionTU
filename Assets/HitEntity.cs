@@ -8,7 +8,6 @@ using UnityEngine.UIElements;
 public class HitEntity : MonoBehaviour
 {
     List<EntityHealth> _targets;
-    [SerializeField] BoxCollider _collider;
 
     public List<EntityHealth> Targets { get => _targets; }
 

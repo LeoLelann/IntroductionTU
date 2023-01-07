@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
 using System;
+using UnityEngine.Events;
 
 public class EntityHealth : MonoBehaviour
 {
@@ -14,6 +15,9 @@ public class EntityHealth : MonoBehaviour
     [SerializeField] PowerUp powerUp;
 
     public event Action OnHit;
+
+    [SerializeField] UnityEvent _onHeal;
+    [SerializeField] UnityEvent _onDamage;
 
     public int CurrentHealth { get; private set; }
     public int MaxHealth { get => _maxHealth; set => _maxHealth = value; }
@@ -31,6 +35,7 @@ public class EntityHealth : MonoBehaviour
 
     public void AddHealth(int healthgain)
     {
+        _onHeal.Invoke();
         CurrentHealth += healthgain;
 
         if(CurrentHealth > _maxHealth)
@@ -49,6 +54,7 @@ public class EntityHealth : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
+        _onDamage.Invoke();
         OnHit?.Invoke();
         CurrentHealth -= damage;
         _healthUI?.UpdateSlider(CurrentHealth);
