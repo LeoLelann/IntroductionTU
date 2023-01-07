@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
+using System;
 
 public class EntityHealth : MonoBehaviour
 {
@@ -11,6 +12,8 @@ public class EntityHealth : MonoBehaviour
     [SerializeField] HealthUI _healthUI;
 
     [SerializeField] PowerUp powerUp;
+
+    public event Action OnHit;
 
     public int CurrentHealth { get; private set; }
     public int MaxHealth { get => _maxHealth; set => _maxHealth = value; }
@@ -44,8 +47,10 @@ public class EntityHealth : MonoBehaviour
         _healthUI?.UpdateSlider(CurrentHealth);
     }
 
-    public void TakeDamage()
+    public void TakeDamage(int damage)
     {
-        Debug.Log("DAMAGE");
+        OnHit?.Invoke();
+        CurrentHealth -= damage;
+        _healthUI?.UpdateSlider(CurrentHealth);
     }
 }

@@ -7,31 +7,31 @@ using UnityEngine.UIElements;
 
 public class HitEntity : MonoBehaviour
 {
-    List<GameObject> _targets;
+    List<EntityHealth> _targets;
+    [SerializeField] BoxCollider _collider;
+
+    public List<EntityHealth> Targets { get => _targets; }
 
     private void Start()
     {
-        _targets = new List<GameObject>();
-    }
-    public void AttackEntities(int attackPower)
-    {
-        foreach(GameObject target in _targets)
-        {
-            target.GetComponent<EntityHealth>().TakeDamage();
-        }
+        _targets = new List<EntityHealth>();
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        
-        if (other.transform.parent.gameObject.GetComponent<EntityHealth>() != null)
+        if (other.GetComponentInParent<EntityHealth>() != null)
         {
-            _targets.Add(other.transform.parent.gameObject);
+            _targets.Add(other.GetComponentInParent<EntityHealth>());
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        _targets.Remove(other.gameObject);
+        _targets.Remove(other.GetComponentInParent<EntityHealth>());
+    }
+
+    public void RemoveTarget(EntityHealth health)
+    {
+        _targets.Remove(health);
     }
 }

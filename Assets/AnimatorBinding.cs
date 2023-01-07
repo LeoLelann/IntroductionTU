@@ -20,6 +20,12 @@ public class AnimatorBinding : MonoBehaviour
         _playerAttack.OnAttack += OnPlayerAttack;
 
         //Inscription aux événements de EntityHealth
+        _entityHealth.OnHit += OnPlayerHit; ;
+    }
+
+    private void OnPlayerHit()
+    {
+        _animator.SetTrigger("GetHit");
     }
 
     private void OnPlayerAttack()

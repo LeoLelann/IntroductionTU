@@ -11,20 +11,37 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] int _attackPower;
 
     public event Action OnAttack;
+    Coroutine AttackingRoutine { get; set; }
 
     void Start()
     {
-        _attack.action.started += OnPlayerAttack; 
+        _attack.action.started += OnPlayerAttack;
+    }
+
+    private void OnDestroy()
+    {
+        _attack.action.started -= OnPlayerAttack;
     }
 
     private void OnPlayerAttack(InputAction.CallbackContext obj)
     {
-        OnAttack?.Invoke();
-        _attackZone?.AttackEntities(_attackPower);
+        StartCoroutine(AttackRoutine());
     }
 
-    void Update()
+    IEnumerator AttackRoutine()
     {
-        
+        OnAttack?.Invoke();
+        for (int i = 0; i < _attackZone.Targets.Count; i++)
+        {
+            EntityHealth health = _attackZone.Targets[i];
+            health.TakeDamage(_attackPower);
+            if (health.CurrentHealth <= 0)
+            {
+                _attackZone.RemoveTarget(health);
+                Destroy(health.gameObject);
+            }
+        }
+        yield return new WaitForSeconds(2f);
     }
+
 }
