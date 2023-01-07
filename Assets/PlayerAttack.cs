@@ -38,7 +38,7 @@ public class PlayerAttack : MonoBehaviour
         {
             EntityHealth health = _attackZone.Targets[i];
             health.TakeDamage(_attackPower);
-            if (health.CurrentHealth <= 0)
+            if (health.CurrentHealth == 0)
             {
                 _attackZone.RemoveTarget(health);
                 Destroy(health.gameObject);

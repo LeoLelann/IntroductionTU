@@ -10,6 +10,7 @@ public class EntityGold : MonoBehaviour
     private void Awake()
     {
         goldcount = 0;
+        _gold.GoldUpdate(goldcount);
     }
 
     public void AddGold(int gold)

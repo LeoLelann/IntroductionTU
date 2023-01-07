@@ -12,7 +12,7 @@ public class DangerZone : MonoBehaviour
         {
             EntityHealth health = other.GetComponentInParent<EntityHealth>();
             health.TakeDamage(_damage);
-            if (health.CurrentHealth <= 0)
+            if (health.CurrentHealth == 0)
             {
                 Destroy(health.gameObject);
             }

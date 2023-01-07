@@ -57,6 +57,10 @@ public class EntityHealth : MonoBehaviour
         _onDamage.Invoke();
         OnHit?.Invoke();
         CurrentHealth -= damage;
+        if (CurrentHealth <= 0)
+        {
+            CurrentHealth = 0;
+        }
         _healthUI?.UpdateSlider(CurrentHealth);
     }
 }
